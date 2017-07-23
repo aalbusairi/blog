@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404
 def home(request):
 	return render(request, 'home.html', {})
 
-def post_create(request):
-	list_post = get_object_or_404(Post, id=2)
+def post_create(request, post_id):
+	list_post = get_object_or_404(Post, id=post_id)
 	context = {
 		"title": "Post Page",
 		"content": "Test Test Test",
@@ -22,7 +22,11 @@ def post_delete(request):
 	return render(request,	'post_delete.html', {})		
 
 def post_list(request):
-	return render(request,	'post_list.html', {})	
+	obj_list = Post.objects.all()
+	context = {
+	"obj_list": obj_list
+	}
+	return render(request,	'post_list.html', context)	
 
 def post_detail(request):
 	return render(request,	'post_detail.html', {})	
