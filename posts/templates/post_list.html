@@ -6,10 +6,9 @@
 <body>
 <ol>
 {% for object in obj_list %}
-	<a href="{% url 'detail' post_id=object.id %}"><li>{{object.title}}</li></a>
+	<a href={{object.get_absolute_url}}><li>{{object.title}}</li></a>
+	<li>{{object.display}}</li>
 {% endfor %}
 </ol>
-
-<h1>This is the Post List page</h1>
 </body>
 </html>
