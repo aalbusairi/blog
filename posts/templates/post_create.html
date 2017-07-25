@@ -4,6 +4,10 @@
 	<title>Post Create page</title>
 </head>
 <body>
-<h1>This is the Post Create page</h1>
+	<form method="POST" action="{% url 'posts:create' %}">
+	{% csrf_token %}
+	{{form.as_p}}
+	<input type="submit" value="Create Post">
+	</form>
 </body>
 </html>
