@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Post List page</title>
-</head>
+{% extends "base.html" %}
+
+{% block head_title %}List{% endblock head_title %}
+
+{% block content %}
 <body>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<ol>
-{% for object in obj_list %}
-	<a href={{object.get_absolute_url}}><li>{{object.title}}</li></a>
-	<li>{{object.display}}</li>
-{% endfor %}
-</ol>
-</body>
-</html>
+	{% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	<ol>
+	{% for object in obj_list %}
+		<a href={{object.get_absolute_url}}><li>{{object.title}}</li></a>
+		<li>{{object.display}}</li>
+	{% endfor %}
+	</ol>
+	</body>
+{% endblock content %}

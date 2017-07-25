@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Post Detail</title>
-	<style>
-		#random{
-			color:red;
-		}
-		#wth{
-			color: green;
-		}
-		.class1{
-			color: blue;
-			background-color: yellow;
-		}
-		.class2{
-			background-color: orange;
-		}
-	</style>
-</head>
+{% extends "base.html" %}
+
+{% block head_title %}Detail{% endblock head_title %}
+
+{% block content %}
 <body>
 	<h1 id="random">{{title}}</h1>
 	<h1 id="wth">{{content}}</h1>
@@ -32,4 +16,5 @@
 <a href="{% url 'posts:list' %}">Go back to list</a>
 
 </body>	
-</html>
+
+{% endblock content %}

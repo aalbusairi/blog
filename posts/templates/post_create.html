@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Post Create page</title>
-</head>
+{% extends "base.html" %}
+
+{% block head_title %}Create{% endblock head_title %}
+
+{% block content %}
 <body>
 	<form method="POST" action="{% url 'posts:create' %}">
 	{% csrf_token %}
@@ -10,4 +10,5 @@
 	<input type="submit" value="Create Post">
 	</form>
 </body>
-</html>
+
+{% endblock content %}

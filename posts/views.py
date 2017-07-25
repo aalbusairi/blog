@@ -5,8 +5,6 @@ from django.shortcuts import get_object_or_404
 from .forms import PostForm
 from django.contrib import messages
 
-def home(request):
-	return render(request, 'home.html', {})
 
 def post_create(request):
 	form = PostForm(request.POST or None)
