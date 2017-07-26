@@ -6,35 +6,37 @@
 <div class="row">
 {% for object in obj_list %}
 	<div class="col-sm-6">
-	    <div class="thumbnail">
-    {#   <img src="..." alt="..."> #}
-      		<div class="caption">
-		        <h3>{{object.title}}<small>{{object.timestamp|timesince}} ago</small></h3>
-		        <p>{{object.content|linebreaks|truncatechars:10}}</p>
-		        <p>
-		          <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a> 
-		          <a href="{% url 'posts:update' post_id=object.id %}" class="btn btn-success">Edit</a>
-		          <a href="{% url 'posts:delete' post_id=object.id %}" class="btn btn-danger">Delete</a> 
-        		</p>
-       	    </div>
-        </div>
-    </div>
+		<div class="thumbnail">
+			{% if object.image %}
+	  <img src="{{object.image.url}}" class="img-responsive">
+	  		{% endif %}
+			<div class="caption">
+				<h3>{{object.title}}<small>{{object.timestamp|timesince}} ago</small></h3>
+				<p>{{object.content|linebreaks|truncatechars:10}}</p>
+				<p>
+				  <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a> 
+				  <a href="{% url 'posts:update' post_id=object.id %}" class="btn btn-success">Edit</a>
+				  <a href="{% url 'posts:delete' post_id=object.id %}" class="btn btn-danger">Delete</a> 
+				</p>
+			</div>
+		</div>
+	</div>
 	{% endfor %}
 	<div class="pagination">
-    <span class="step-links">
-        {% if obj_list.has_previous %}
-            <a href="?page={{ obj_list.previous_page_number }}">previous</a>
-        {% endif %}
+	<span class="step-links">
+		{% if obj_list.has_previous %}
+			<a href="?page={{ obj_list.previous_page_number }}">previous</a>
+		{% endif %}
 
-        <span class="current">
-            Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}
-        </span>
+		<span class="current">
+			Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}
+		</span>
 
-        {% if obj_list.has_next %}
-            <a href="?page={{ obj_list.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-    </div>
+		{% if obj_list.has_next %}
+			<a href="?page={{ obj_list.next_page_number }}">next</a>
+		{% endif %}
+	</span>
+	</div>
 </div>
 	</body>
 {% endblock content %}

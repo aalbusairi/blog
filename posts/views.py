@@ -9,19 +9,19 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def post_create(request):
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		form.save()
 		messages.success(request, "Post Succesfully Created")
 		return redirect("posts:list")
 	context = {
-	"form": form
+	"form": form,
 	}
 	return render(request, 'post_create.html', context)	
 
 def post_update(request, post_id):
 	post_object = get_object_or_404(Post, id=post_id)
-	form = PostForm(request.POST or None, instance=post_object)
+	form = PostForm(request.POST or None, request.FILES or None, instance=post_object)
 	if form.is_valid():
 		form.save()
 		messages.success(request, "Post Succesfully Updated")
