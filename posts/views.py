@@ -4,6 +4,8 @@ from .models import Post
 from django.shortcuts import get_object_or_404
 from .forms import PostForm
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 def post_create(request):
@@ -39,8 +41,20 @@ def post_delete(request, post_id):
 
 def post_list(request):
 	obj_list = Post.objects.all()#.order_by("-timestamp","-updated")
+	paginator = Paginator(obj_list, 4) # Show 25 contacts per page
+
+	page = request.GET.get('page')
+	try:
+		obj = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		obj = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		obj = paginator.page(paginator.num_pages)
+
 	context = {
-	"obj_list": obj_list
+	"obj_list": obj
 	}
 	return render(request,	'post_list.html', context)	
 
