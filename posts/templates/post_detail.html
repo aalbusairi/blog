@@ -1,17 +1,31 @@
 {% extends "base.html" %}
+{% load urlify %}
 
 {% block head_title %}Detail{% endblock head_title %}
 
 {% block content %}
 <body>
-	<h1 id="random">{{title}}</h1>
-	<h1 id="wth">{{content}}</h1>
-	<ul>
-		<li>{{list.title}}</li>
-		<li>{{list.timestamp}}</li>
-		<li>{{list.content}}</li>
-		<li>{{list.updated}}</li>
-	</ul>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="thumbnail">
+			{% if list.image %}
+	  <img src="{{list.image.url}}" class="img-responsive">
+			{% endif %}
+			<div class="caption">
+				<h3>{{list.title}}<small><br>{{list.timestamp|timesince}} ago</small></h3>
+				<p>{{list.content|linebreaks|truncatechars:10}}</p>
+				 <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}"> Share on Facebook
+				</a><br>
+				<a href="https://twitter.com/home?status={{list.content|urlify|truncatechars:50}}%20{{request.build_absolute_uri}}">
+				Share on Twitter
+				</a><br>
+				<a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title={{list.title|urlify}}&summary={{list.content|truncatechars:35|urlify}}&source={{request.build_absolute_uri}}">
+				Share on Linkedin
+				</a><br> 
+			</div>
+		</div>
+	</div>
+</div>	
 	
 <a href="{% url 'posts:list' %}">Go back to list</a>
 
