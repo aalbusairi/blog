@@ -5,7 +5,7 @@
 {% block content %}
 
 <body>
-	<form method="POST" action="{% url 'posts:update' post_id=post_object.id %}" enctype="multipart/form-data">
+	<form method="POST" action="{% url 'posts:update' slug=post_object.slug %}" enctype="multipart/form-data">
 	{% csrf_token %}
 	{{form.as_p}}
 	<input type="submit" value="Update Post">

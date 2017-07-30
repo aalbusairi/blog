@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-{% block head_title %}List{% endblock head_title %}
+{% block head_title %}
+
+List
+
+{% endblock head_title %}
 
 {% block content %}
 <div class="row">
@@ -15,8 +19,8 @@
 				<p>{{object.content|linebreaks|truncatechars:10}}</p>
 				<p>
 				  <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a> 
-				  <a href="{% url 'posts:update' post_id=object.id %}" class="btn btn-success">Edit</a>
-				  <a href="{% url 'posts:delete' post_id=object.id %}" class="btn btn-danger">Delete</a> 
+				  <a href="{% url 'posts:update' slug=object.slug %}" class="btn btn-success">Edit</a>
+				  <a href="{% url 'posts:delete' slug=object.slug %}" class="btn btn-danger">Delete</a> 
 				</p>
 			</div>
 		</div>

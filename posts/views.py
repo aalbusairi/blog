@@ -20,8 +20,8 @@ def post_create(request):
 	}
 	return render(request, 'post_create.html', context)	
 
-def post_update(request, post_id):
-	post_object = get_object_or_404(Post, id=post_id)
+def post_update(request, slug):
+	post_object = get_object_or_404(Post, slug=slug)
 	form = PostForm(request.POST or None, request.FILES or None, instance=post_object)
 	if form.is_valid():
 		form.save()
@@ -33,8 +33,8 @@ def post_update(request, post_id):
 	}
 	return render(request,	'post_update.html', context)	
 
-def post_delete(request, post_id):
-	post_object = get_object_or_404(Post, id=post_id)
+def post_delete(request, slug):
+	post_object = get_object_or_404(Post, slug=slug)
 	post_object.delete()
 	messages.warning(request, "Post Deleted")
 	return redirect("posts:list")
@@ -59,8 +59,8 @@ def post_list(request):
 	}
 	return render(request,	'post_list.html', context)	
 
-def post_detail(request, post_id):
-	list_post = get_object_or_404(Post, id=post_id)
+def post_detail(request, slug):
+	list_post = get_object_or_404(Post, slug=slug)
 	context = {
 		"title": "Post Page",
 		"content": "Test Test Test",
