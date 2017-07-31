@@ -7,7 +7,9 @@ List
 {% endblock head_title %}
 
 {% block content %}
+
 <div class="row">
+
 {% for object in obj_list %}
 	<div class="col-sm-6">
 		<div class="thumbnail">
@@ -15,7 +17,11 @@ List
 	  <img src="{{object.image.url}}" class="img-responsive">
 	  		{% endif %}
 			<div class="caption">
-				<h3>{{object.title}}<br><small>{{object.timestamp|timesince}} ago</small></h3>
+				<h3>{{object.title}}<br><small>{{object.publish|timesince}} ago</small></h3>
+
+				{% if object.draft %}<h4>Draft</h4>{% endif %}
+				{% if object.publish > today %}<h4>Future Blog Post</h4>{% endif %}
+
 				<p>{{object.content|linebreaks|truncatechars:10}}</p>
 				<p>
 				  <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a>
@@ -31,7 +37,7 @@ List
 	<div class="pagination">
 	<span class="step-links">
 		{% if obj_list.has_previous %}
-			<a href="?page={{ obj_list.previous_page_number }}">previous</a>
+			<a href="?page={{ obj_list.previous_page_number }}&q={{request.GET.q}}">previous</a>
 		{% endif %}
 
 		<span class="current">
@@ -39,7 +45,7 @@ List
 		</span>
 
 		{% if obj_list.has_next %}
-			<a href="?page={{ obj_list.next_page_number }}">next</a>
+			<a href="?page={{ obj_list.next_page_number }}&q={{request.GET.q}} ">next</a>
 		{% endif %}
 	</span>
 	</div>
