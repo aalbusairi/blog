@@ -14,6 +14,7 @@
 			<div class="caption">
 				<h3>{{list.title}}<small><br>{{list.timestamp|timesince}} ago</small></h3>
 				<p>{{list.content|linebreaks|truncatechars:10}}</p>
+				Author: {{list.author.get_full_name}}
 				<p>
 					<a href="{% url 'posts:update' slug=list.slug %}" class="btn btn-success">Edit</a>
 					<a href="{% url 'posts:delete' slug=list.slug %}" class="btn btn-danger">Delete</a> 
