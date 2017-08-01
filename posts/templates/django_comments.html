@@ -1,0 +1,30 @@
+{% load comments %}
+
+{% get_comment_list for list as steve %}
+
+{% for comment in steve %}
+	<div class="alert alert-info" role="alert">{{comment.user_name }} said: {{comment.comment|linebreaks}}</div>
+{% endfor %}
+
+{% get_comment_form for list as form %}
+
+{% if request.user.is+authenticated %}
+	
+<form action="{% comment_form_target %}" method="POST">
+	{% csrf_token %}
+	<input type="hidden" name="name" value="{{ request.user.username }}">
+	<input type="hidden" name="email" value="{{ request.user.email }}">
+	<textarea type="text" class="form-control input-lg" name="comment"></textarea>
+	{{ form.content_type }}
+	{{ form.object_pk }}
+	{{ form.timestamp }}
+	{{ form.security_hash }}
+	<input type="hidden" name="next" value="{{list.get_absolute_url}}"><br>
+	<input type="submit" name="submit" class="btn btn-primary"><br><br>
+</form>
+
+{% else %}
+
+<h3>Please Log in to Comment</h3>
+
+{% endif %}
