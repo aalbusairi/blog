@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load urlify %}
+{% load comments %}
 
 {% block head_title %}Detail{% endblock head_title %}
 
@@ -26,13 +27,14 @@
 				</a><br>
 				<a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title={{list.title|urlify}}&summary={{list.content|truncatechars:35|urlify}}&source={{request.build_absolute_uri}}">
 				Share on Linkedin
-				</a><br>
+				</a><br>	
 			</div>
+			{% include "django_comments.html" %}
 		</div>
 	</div>
 </div>	
 	
-<a href="{% url 'posts:list' %}">Go back to list</a>
+<a href="{% url 'posts:list' %}">Go back to List</a>
 
 </body>	
 
