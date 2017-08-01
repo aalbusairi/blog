@@ -2,16 +2,63 @@ from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from .models import Post
 from django.shortcuts import get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, UserSignup, UserLogin
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from urllib.parse import quote
 from django.http import Http404
 from django.utils import timezone
 from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
 
+def usersignup(request):
+	context = {}
+	form = UserSignup()
+	context['form'] = form
+	if request.method == 'POST':
+		form = UserSignup(request.POST)
+		if form.is_valid():
+			user = form.save(commit=False)
+			username = user.username
+			password = user.password
 
+			user.set_password(password)
+			user.save()
 
+			auth_user = authenticate(username=username, password=password)
+			login(request, auth_user)
+
+			return redirect("posts:list")
+		messages.warning(request, form.errors)
+		return redirect("posts:signup")
+	return render(request, 'signup.html', context)
+
+def userlogin(request):
+	context = {}
+	form = UserLogin()
+	context['form'] = form
+	if request.method == 'POST':
+		form = UserLogin(request.POST)
+		if form.is_valid():
+
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+
+			auth_user = authenticate(username=username, password=password)
+			if auth_user is not None:
+				login(request, auth_user)
+				return redirect('posts:list')
+
+			messages.warning(request, "Wrong username/password combination. Please try again.")
+			return redirect("posts:login")
+		messages.warning(request, form.errors)
+		return redirect("posts:login")
+	return render(request, 'login.html', context)
+
+def userlogout(request):
+    logout(request)
+    return redirect("posts:login")	
+			
 def post_create(request):
 	if not (request.user.is_staff or request.user.is_superuser):
 		raise Http404
@@ -97,5 +144,7 @@ def post_detail(request, slug):
 		"content": "Test Test Test",
 		"list": list_post,
 	}	
-	return render(request,	'post_detail.html', context)	
+	return render(request,	'post_detail.html', context)
+
+
 	
