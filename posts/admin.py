@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from.models import Post
+from.models import Post, Like
 
 
 class PostModelAdmin(admin.ModelAdmin):
@@ -16,3 +16,4 @@ class PostModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Post, PostModelAdmin)
+admin.site.register(Like)
