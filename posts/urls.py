@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^signup/$', views.usersignup, name="signup"),
 	url(r'^login/$', views.userlogin, name="login"),
 	url(r'^logout/$', views.userlogout, name="logout"),
+	url(r'^ajax_like/(?P<post_id>\d+)/$', views.ajax_like, name="like_button"),
 ]
