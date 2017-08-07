@@ -25,7 +25,7 @@ SECRET_KEY = 'ow0-pk72@(ct%#rd)t&-ic22!s)32(e4qb@5%kk=g0wh#4(v8s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['128.199.242.207']
+ALLOWED_HOSTS = ['128.199.242.207', '127.0.0.1']
 
 
 # Application definition
@@ -78,26 +78,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Blog.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+#Database
+#https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django',
-        'USER': 'django',
-        'PASSWORD': '05ed9a4d7c605b3e642d7428ac919d6c',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'django',
+#         'USER': 'django',
+#         'PASSWORD': '05ed9a4d7c605b3e642d7428ac919d6c',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
