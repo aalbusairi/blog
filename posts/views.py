@@ -141,15 +141,15 @@ def post_detail(request, slug):
 			raise Http404
 	if request.user.is_authenticated():
 		if Like.objects.filter(post=list_post, user=request.user).exists():
-			liked= True
+			liked = True
 		else:
-			liked= False
+			liked = False
 	post_like_count = list_post.like_set.all().count()
 						
 	context = {
 		"list": list_post,
 		"like_count": post_like_count,
-		"liked": liked,
+		# "liked": liked,
 	}	
 	return render(request,	'post_detail.html', context)
 
